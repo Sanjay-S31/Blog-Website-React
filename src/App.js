@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import Navbar from './Navbar';
+import Home from './Home';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import Create from './CreateBlog';
+import Details from './BlogDetails';
+import NotFound from './NotFoundPage';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="app">
+        <Navbar/>
+        <div className="contents">
+          {/* used in react-router-dom version 6 */}
+          <Routes>
+            <Route exact path="/" element={<Home/> } ></Route> 
+            <Route path='/create' element={<Create/>} ></Route>
+            <Route path='/blogs/:id' element={<Details/>} ></Route>
+            <Route path='*' element={<NotFound/>} ></Route> 
+          </Routes>
+
+          {/* "*" - is used to match all paths so it is best to place it at the bottom  */}
+
+          {/* <Switch>
+            <Route path="/" ><Home/></Route>  used in react-router-dom version 5
+          </Switch> */}
+
+        </div>
+      </div>
+    </Router>
   );
 }
-
-export default App;
